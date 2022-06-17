@@ -18,12 +18,13 @@ The project contains the next list of components:
 - 2x 10k Ohm resistor
 - Stepper motor driver (A4988)
 - Stepper motor (ST4118S0706-A)
+
 - Wires
 - Breadboard
 
 ## Circuit
 
-![circuit](https://user-images.githubusercontent.com/76057973/174337139-ce6f8ccf-c32e-4656-a3e0-d60f30a19c97.svg)
+![circuit](https://user-images.githubusercontent.com/76057973/174337352-54a4f0b8-b6a3-4f97-b7cd-17a0448065a3.png)
 
 ## Arduino libraries
 
