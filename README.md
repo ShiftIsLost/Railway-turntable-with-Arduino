@@ -28,5 +28,12 @@ The project contains the next list of components:
 
 ## Arduino libraries
 
+Libraries used in this project:
+- AccelStepper.h
+- ezAnalogKeypad.h
+- EEPROM.h
+
 ## How to use
 
+Before loading the program u will need to calibrate the analog keypad values(you can do that with this example https://github.com/ArduinoGetStarted/Analog-Keypad/blob/main/examples/Calibration/Calibration.ino).
+To move left or right press one of the digital buttons. To save the possition to one of the analog buttons press the left and right button at once then the desired keypad button. 
