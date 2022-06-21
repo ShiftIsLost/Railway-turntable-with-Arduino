@@ -32,7 +32,7 @@ void setup() {
   //debug
   Serial.begin(9600);
   
-  //set keyboard
+  //set keypad
   keypad.setNoPressValue(0); 
   keypad.registerKey(1, 314); 
   keypad.registerKey(2, 410); 
@@ -43,15 +43,20 @@ void setup() {
   keypad.registerKey(7, 130);
   keypad.registerKey(8, 274);
   keypad.registerKey(9, 470);
-  //keypad.registerKey(10, 1000);//?
-  keypad.registerKey(11, 184);//set home
-  //keypad.registerKey(12, 418);//?
+  keypad.registerKey(10, 184);
+  
 
+  // initialize digital pin LED_BUILTIN as an output.
+  pinMode(LED_BUILTIN, OUTPUT); 
+
+  //left and right digital buttons
   pinMode(buttonPin1, INPUT);
   pinMode(buttonPin2, INPUT);
+
+  //setting home switch
   pinMode(home_switch, INPUT_PULLUP);
   
-  delay(5);
+  delay(20);
 
 
   gohome();
@@ -120,36 +125,38 @@ void moveToPosition(int saveNumber){
   int position = readIntFromEEPROM(saveNumber*2);
   Serial.print("moving to ");
   Serial.println(position);
-  //myStepper.moveTo();
+  if (position>=0)
+    myStepper.moveTo(position);
 }
 
 void loop() {
   if(digitalRead(buttonPin1) && digitalRead(buttonPin2)){
     Serial.println("Select number to save to");
+    digitalWrite(LED_BUILTIN, HIGH);
     int button = buttonPosition();
     while(!button){
       button = buttonPosition();
-      if(digitalRead(buttonPin1)){
+      if(digitalRead(buttonPin1))
         myStepper.move(1);
-        delay(5);
-      }
         
-      if(digitalRead(buttonPin2)){
+      else if(digitalRead(buttonPin2))
         myStepper.move(-1);
-        delay(5);
-      }
+        
+      myStepper.run();
+      delay(5);
     }
     writePosition(button);
+    digitalWrite(LED_BUILTIN, LOW);
   }
   
   if(digitalRead(buttonPin1)){
     myStepper.move(1);
-    delay(5);
+    delay(10);
   }
     
   if(digitalRead(buttonPin2)){
     myStepper.move(-1);
-    delay(5);
+    delay(10);
   }
 
   moveToPosition(buttonPosition());
@@ -157,5 +164,4 @@ void loop() {
 
   myStepper.run();
   
-  //delay(5);
 }
